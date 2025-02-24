@@ -11,7 +11,7 @@
  * @param year Calendar year
  * @return Returns a value from 1 to 7 Where 1 is Sunday 7 is Saturday
  */
-unsigned char getWeekDay(unsigned int year, unsigned char month = 1, unsigned char day = 1){
+unsigned char getWeekDay(unsigned int year, unsigned char month , unsigned char day){
     // Following Zeller's Congruence Algorithm
  
     // If the month is Jan or Feb
@@ -27,13 +27,24 @@ unsigned char getWeekDay(unsigned int year, unsigned char month = 1, unsigned ch
  
     // Adjusting the value to be from 1 to 7
     return ((weekday + 6) % 7) + 1;
- }
+}
  
+ /**
+ * @brief Checks if the given year is a leap year
+ * @param year Calendar year
+ * @return Returns a boolean
+ */
  bool isLeapYear(unsigned int year){
     // if divisible by 4  and not by 100 (if by 100 it should also be divisible by 400)
     return (year%4 == 0) && (year%100 != 0 || year%400 == 0);
- }
+}
  
+ /**
+ * @brief Outputs month name and number of days in the month
+ * @param month month
+ * @param leap_year whether leap year
+ * @return Returns a pair with month name, number of days
+ */
  std::pair<std::string, unsigned char> getMonthInfo(unsigned char month, bool leap_year) {
  
     switch (month) {
@@ -68,8 +79,13 @@ unsigned char getWeekDay(unsigned int year, unsigned char month = 1, unsigned ch
           return{"Invalid Month",0}; // Handle invalid input
     }
  
- }
- 
+}
+
+/**
+ * @brief Display the calendar
+ * @param year Calendar year
+ * @return Nothing
+ */
  void displayCalendar(unsigned int year){
     // default values for month and day are being used: 01 Jan
     unsigned char starting_weekday = getWeekDay(year);
