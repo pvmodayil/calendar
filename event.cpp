@@ -1,5 +1,6 @@
 #include "event.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -49,6 +50,30 @@ void createEvent(std::vector<Event>& events){
     std::cout<<"Event Description (optional): ";
     std::getline(std::cin>>std::ws, description);
 
-    Event new_event(event_title, date, description);
+    Event new_event(date,event_title,description);
     events.push_back(new_event);
+}
+
+void saveEvents(const std::vector<Event>& events){
+    // Create or open file in append mode
+    std::ofstream out_file("events.csv",std::ios_base::app);
+    
+
+    // If current write position is zero i.e, nothing written
+    if (out_file.tellp() == 0){
+        // Write the header
+        out_file << "Day,Month,Year,Title,Description\n";
+    }
+
+    // Write the events into the file
+    for (const Event& event : events){
+        out_file << static_cast<unsigned int>(event.date.day) << ","
+                << static_cast<unsigned int>(event.date.month) << ","
+                << event.date.year << ","
+                << event.event_title << ","
+                << event.description << "\n";
+    }
+
+    // Close the file
+    out_file.close();
 }

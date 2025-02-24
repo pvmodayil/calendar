@@ -6,18 +6,19 @@
 #include <vector>
 
 struct Date {
-    unsigned int year;
-    unsigned char month;
     unsigned char day;
-    Date(unsigned int y = 0, unsigned char m = 0, unsigned char d = 0) : year(y), month(m), day(d) {}
+    unsigned char month;
+    unsigned int year;
+
+    Date(unsigned int y = 0, unsigned char m = 0, unsigned char d = 0) : day(d), month(m), year(y) {}
 };
 
 struct Event{
-    std::string event_title;
     Date date;
+    std::string event_title;
     std::string description;
 
-    Event(std::string t, Date d, std::string desc = "") : event_title(t), date(d), description(desc) {}
+    Event(Date d, std::string t, std::string desc = "") : date(d), event_title(t), description(desc) {}
 };
 
 Date stringToDate();
