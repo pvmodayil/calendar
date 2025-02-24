@@ -23,7 +23,7 @@ A simple calendar application written in C++ that allows users to view a yearly 
 1. Install C++
 2. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/calendar-app.git
+   git clone https://github.com/pvmodayil/calendar.git
    cd calendar
    ```
 ## Build
