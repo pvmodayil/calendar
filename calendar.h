@@ -1,6 +1,8 @@
 #ifndef CALENDAR_H
 #define CALENDAR_H
 
+#include <iostream>
+#include <iomanip>
 #include <string>
 #include <utility> // For std::pair
 
