@@ -56,6 +56,12 @@ build CMakeFiles/calendar.dir/calendar.cpp.obj: CXX_COMPILER__calendar_unscanned
   OBJECT_DIR = CMakeFiles\calendar.dir
   OBJECT_FILE_DIR = CMakeFiles\calendar.dir
 
+build CMakeFiles/calendar.dir/event.cpp.obj: CXX_COMPILER__calendar_unscanned_ C$:/Users/pvmod/Programming/CPPProjects/calendar/event.cpp || cmake_object_order_depends_target_calendar
+  DEP_FILE = CMakeFiles\calendar.dir\event.cpp.obj.d
+  INCLUDES = -IC:/Users/pvmod/Programming/CPPProjects/calendar/.
+  OBJECT_DIR = CMakeFiles\calendar.dir
+  OBJECT_FILE_DIR = CMakeFiles\calendar.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target calendar
@@ -64,7 +70,7 @@ build CMakeFiles/calendar.dir/calendar.cpp.obj: CXX_COMPILER__calendar_unscanned
 #############################################
 # Link the executable calendar.exe
 
-build calendar.exe: CXX_EXECUTABLE_LINKER__calendar_ CMakeFiles/calendar.dir/main.cpp.obj CMakeFiles/calendar.dir/calendar.cpp.obj
+build calendar.exe: CXX_EXECUTABLE_LINKER__calendar_ CMakeFiles/calendar.dir/main.cpp.obj CMakeFiles/calendar.dir/calendar.cpp.obj CMakeFiles/calendar.dir/event.cpp.obj
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\calendar.dir
   POST_BUILD = cd .
