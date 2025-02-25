@@ -38,6 +38,7 @@ int main(int argc, char **argv){
          case 2:
             createEvent(events);
             saveEvents(events);
+            std::cout<<"Event was saved..."<<std::endl;
             break;
          case 3:
             wish_to_exit = true;

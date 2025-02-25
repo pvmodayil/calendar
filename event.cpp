@@ -129,13 +129,28 @@ std::pair<std::vector<Event>,bool> loadEvents(){
         while (getline(saved_file,line_in_file)){
             // Split the line
             std::vector<std::string> tokens = splitString(line_in_file,",");
-            
-            // Data will be in this order Day,Month,Year,Title,Description
-            date.day = static_cast<unsigned char>(std::stoi(tokens[0]));
-            date.month = static_cast<unsigned char>(std::stoi(tokens[1]));
-            date.year = static_cast<unsigned int>(std::stoi(tokens[2]));
-            title = std::stoi(tokens[3]);
-            description = std::stoi(tokens[4]);
+
+            try {
+                date.day = static_cast<unsigned char>(std::strtol(tokens[0].c_str(), nullptr, 10));
+                date.month = static_cast<unsigned char>(std::strtol(tokens[1].c_str(), nullptr, 10));
+                date.year = static_cast<unsigned int>(std::strtol(tokens[2].c_str(), nullptr, 10));
+                
+                title = tokens[3]; // Direct assignment without stoi
+                description = tokens[4]; // Direct assignment without stoi
+            } catch (const std::invalid_argument& e) {
+                std::cerr << "Invalid argument encountered while parsing line: " 
+                          << line_in_file 
+                          << ", error: " 
+                          << e.what() 
+                          << ", token(s): [" 
+                          << tokens[0] 
+                          << ", " 
+                          << tokens[1] 
+                          << ", " 
+                          << tokens[2] 
+                          << "]"  // Display the problematic tokens
+                          << std::endl;
+            }
             loaded_events.emplace_back(date,title,description); // Directly pushes the object to the container
         }
         saved_file.close();
