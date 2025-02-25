@@ -56,12 +56,17 @@ void createEvent(std::vector<Event>& events){
 }
 
 void saveEvents(const std::vector<Event>& events){
+    // Check existence of the output file
+    std::ifstream save_file("events.csv");
+    bool fileExist = save_file.good(); // sets false if some error flags are set
+    save_file.close();
+
     // Create or open file in append mode
     std::ofstream out_file("events.csv",std::ios_base::app);
     
 
     // If current write position is zero i.e, nothing written
-    if (out_file.tellp() == 0){
+    if (!fileExist){
         // Write the header
         out_file << "Day,Month,Year,Title,Description\n";
     }

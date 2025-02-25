@@ -37,6 +37,7 @@ int main(int argc, char **argv){
             break;
          case 2:
             createEvent(events);
+            saveEvents(events);
             break;
          case 3:
             wish_to_exit = true;
