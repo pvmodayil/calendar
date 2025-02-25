@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\mingw64\bin\cmake.exe --regenerate-during-build -SC:\Users\pvmod\Programming\CPPProjects\Calendar -BC:\Users\pvmod\Programming\CPPProjects\Calendar\build
+  command = C:\mingw64\bin\cmake.exe --regenerate-during-build -SC:\Users\pvmod\Programming\CPPProjects\calendar -BC:\Users\pvmod\Programming\CPPProjects\calendar\build
   description = Re-running CMake...
   generator = 1
 

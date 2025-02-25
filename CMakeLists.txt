@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.10)
 project(CalendarApp)
 
 # Specify the executable target
-add_executable(calendar main.cpp calendar.cpp)
+add_executable(calendar main.cpp calendar.cpp event.cpp)
 
 # Include directories if needed
 include_directories(.)
