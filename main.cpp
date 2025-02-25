@@ -12,7 +12,7 @@ int main(int argc, char **argv){
    // initialize and receive the year
    std::vector<Event> events;
    unsigned int year;
-   unsigned char choice;
+   unsigned int choice;
 
    std::cout << "Enter the calendar year you wish to work with: " ; 
    std::cin >> year;
@@ -23,11 +23,11 @@ int main(int argc, char **argv){
    // Menu
    bool wish_to_exit{false};
    while(!wish_to_exit){
-      std::cout<<"Menu\n:";
+      std::cout<<"Menu:\n";
       std::cout<<"1. Display Calendar\n";
       std::cout<<"2. Add Event\n";
       std::cout<<"3. Exit\n";
-      
+
       std::cout<<"Enter your choice: ";
       std::cin >> choice;
 
