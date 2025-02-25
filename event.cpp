@@ -20,7 +20,8 @@ Date stringToDate(){
 
     // Split the string
     std::vector<std::string> tokens;
-    unsigned char start{0}, end{date_string.find("-")}; // to get the substring out
+    size_t start{0}, end{date_string.find("-")}; // to get the substring out .find() returns size_t
+    // always good practice to declare position variables of iterables as size_t
 
     while (end != std::string::npos){
         tokens.push_back(date_string.substr(start, end-start));

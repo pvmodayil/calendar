@@ -23,5 +23,6 @@ struct Event{
 
 Date stringToDate();
 void createEvent(std::vector<Event>& events);
+void saveEvents(const std::vector<Event>& events);
 
 #endif // EVENT_H

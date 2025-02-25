@@ -14,9 +14,9 @@ int main(int argc, char **argv){
    unsigned int year;
    unsigned char choice;
 
-   std::cout << "Enter the calendar year: " ; 
+   std::cout << "Enter the calendar year you wish to work with: " ; 
    std::cin >> year;
-   
+   displayCalendar(year);
    // Load existing events from file
    // code here events = loadEvents();
 
@@ -27,7 +27,9 @@ int main(int argc, char **argv){
       std::cout<<"1. Display Calendar\n";
       std::cout<<"2. Add Event\n";
       std::cout<<"3. Exit\n";
-      displayCalendar(year);
+      
+      std::cout<<"Enter your choice: ";
+      std::cin >> choice;
 
       switch (choice){
          case 1:
