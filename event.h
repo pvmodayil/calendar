@@ -1,6 +1,7 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include "uuid.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -15,11 +16,12 @@ struct Date {
 };
 
 struct Event{
+    std::string uuid;
     Date date;
     std::string event_title;
     std::string description;
 
-    Event(Date d, std::string t, std::string desc = "") : date(d), event_title(t), description(desc) {}
+    Event(std::string id, Date d, std::string t, std::string desc = "") : uuid(id), date(d), event_title(t), description(desc) {}
 };
 
 std::vector<std::string> splitString(std::string line, std::string delimeter);
