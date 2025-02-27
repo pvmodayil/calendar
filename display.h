@@ -1,5 +1,5 @@
-#ifndef CALENDAR_H
-#define CALENDAR_H
+#ifndef DISPLAY_H
+#define DISPLAY_H
 
 #include <iostream>
 #include <iomanip>
