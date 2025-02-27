@@ -1,3 +1,0 @@
-C:/Users/pvmod/Programming/CPPProjects/Calendar/build/CMakeFiles/calendar.dir
-C:/Users/pvmod/Programming/CPPProjects/Calendar/build/CMakeFiles/edit_cache.dir
-C:/Users/pvmod/Programming/CPPProjects/Calendar/build/CMakeFiles/rebuild_cache.dir
