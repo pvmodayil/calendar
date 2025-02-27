@@ -11,7 +11,7 @@
  * @param year Calendar year
  * @return Returns a value from 1 to 7 Where 1 is Sunday 7 is Saturday
  */
-unsigned char getWeekDay(unsigned int year, unsigned char month , unsigned char day){
+unsigned int getWeekDay(unsigned int year, unsigned int month , unsigned int day){
     // Following Zeller's Congruence Algorithm
  
     // If the month is Jan or Feb
@@ -23,7 +23,7 @@ unsigned char getWeekDay(unsigned int year, unsigned char month , unsigned char 
     unsigned int century = year/100;
     unsigned int year_in_century = year%100;
  
-    unsigned char weekday = (day + (13 * (month + 1)) / 5 + year_in_century + (year_in_century / 4) + (century / 4) - (2 * century)) % 7;
+    unsigned int weekday = (day + (13 * (month + 1)) / 5 + year_in_century + (year_in_century / 4) + (century / 4) - (2 * century)) % 7;
  
     // Adjusting the value to be from 1 to 7
     return ((weekday + 6) % 7) + 1;
@@ -45,7 +45,7 @@ unsigned char getWeekDay(unsigned int year, unsigned char month , unsigned char 
  * @param leap_year whether leap year
  * @return Returns a pair with month name, number of days
  */
- std::pair<std::string, unsigned char> getMonthInfo(unsigned char month, bool leap_year) {
+ std::pair<std::string, unsigned int> getMonthInfo(unsigned int month, bool leap_year) {
  
     switch (month) {
         case 1:
@@ -88,22 +88,22 @@ unsigned char getWeekDay(unsigned int year, unsigned char month , unsigned char 
  */
  void displayCalendar(unsigned int year){
     // default values for month and day are being used: 01 Jan
-    unsigned char starting_weekday = getWeekDay(year);
+    unsigned int starting_weekday = getWeekDay(year);
     bool leap_year = isLeapYear(year);
-    unsigned char day_counter;
+    unsigned int day_counter;
     
     std::string month_name;
-    unsigned char number_of_days;
+    unsigned int number_of_days;
  
     // display constants
-    const unsigned char date_width{6};
+    const unsigned int date_width{6};
  
     // print the calendar
     std::cout<<std::setw(date_width)<<"***********************************"<<std::endl;
     std::cout<<std::setw(date_width)<<"\tCALENDAR "<<year<<std::endl;
     std::cout<<std::setw(date_width)<<"***********************************"<<std::endl;
-    for (unsigned char month : {1,2,3,4,5,6,7,8,9,10,11,12}){
-       std::pair<std::string, unsigned char> result = getMonthInfo(month, leap_year); // Get the result as a pair
+    for (unsigned int month : {1,2,3,4,5,6,7,8,9,10,11,12}){
+       std::pair<std::string, unsigned int> result = getMonthInfo(month, leap_year); // Get the result as a pair
        
        // Use std::tie to unpack without dot indexing
        std::tie(month_name, number_of_days) = result;
@@ -120,13 +120,13 @@ unsigned char getWeekDay(unsigned int year, unsigned char month , unsigned char 
        << std::setw(date_width) << "Sat" << std::endl;
  
        //Print empty day slots in calendar
-       for(unsigned char j{1};j < starting_weekday; j++){
+       for(unsigned int j{1};j < starting_weekday; j++){
           std::cout << std::setw(date_width) <<  ""; 
        }
  
        //Print actual days
        day_counter = starting_weekday;
-       for(unsigned char day{1}; day <= number_of_days; day++ ){
+       for(unsigned int day{1}; day <= number_of_days; day++ ){
           std::cout << std::setw(date_width) << static_cast<unsigned int>(day);
           day_counter++;
  

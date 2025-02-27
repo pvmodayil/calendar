@@ -40,8 +40,8 @@ Date stringToDate(){
     std::vector<std::string> tokens = splitString(date_string,"-");
     
     // Convert to integers and store
-    date.day = static_cast<unsigned char>(std::stoi(tokens[0]));
-    date.month = static_cast<unsigned char>(std::stoi(tokens[1]));
+    date.day = static_cast<unsigned int>(std::stoi(tokens[0]));
+    date.month = static_cast<unsigned int>(std::stoi(tokens[1]));
     date.year = static_cast<unsigned int>(std::stoi(tokens[2]));
 
     return date;
@@ -69,11 +69,21 @@ void createEvent(std::vector<Event>& events){
 }
 
 bool eventExists(const Event& new_event, const std::vector<Event>& loaded_events) {
-    for (const auto& event : loaded_events) {
-        if (event.event_title == new_event.event_title && 
-            event.date.day == new_event.date.day && 
-            event.date.month == new_event.date.month &&
-            event.date.year == new_event.date.year) {
+    for (const auto& old_event : loaded_events) {
+        std::cout << "Comparing with existing Event: Title=" 
+                  << old_event.event_title 
+                  << ", Day=" 
+                  << old_event.date.day
+                  << ", Month=" 
+                  << old_event.date.month
+                  << ", Year=" 
+                  << old_event.date.year 
+                  << "\n";
+
+        if (old_event.event_title == new_event.event_title && 
+            old_event.date.day == new_event.date.day && 
+            old_event.date.month == new_event.date.month &&
+            old_event.date.year == new_event.date.year) {
             return true; // Duplicate found
         }
     }
@@ -99,20 +109,23 @@ void saveEvents(const std::vector<Event>& events){
     }
 
     // Write the events into the file
-    for (const Event& event : events){
-        if (!eventExists(event,loaded_events)){
-            out_file << event.uuid
-                << static_cast<unsigned int>(event.date.day) << ","
-                << static_cast<unsigned int>(event.date.month) << ","
-                << event.date.year << ","
-                << event.event_title << ","
-                << event.description << "\n";
-        }
-        else{
-            std::cout<<"This event already exists!"<<std::endl;
-        }
-        
+    
+    auto last_added_event = events.back();
+    if (!eventExists(last_added_event,loaded_events)){
+            out_file << last_added_event.uuid << ","
+                << last_added_event.date.day << ","
+                << last_added_event.date.month << ","
+                << last_added_event.date.year << ","
+                << last_added_event.event_title << ","
+                << last_added_event.description << "\n";
+            
+            std::cout<<"Event was saved..."<<std::endl;
     }
+    else{
+        std::cout<<"This event already exists!"<<std::endl;
+    }
+        
+    
 
     // Close the file
     out_file.close();
@@ -131,33 +144,18 @@ std::pair<std::vector<Event>,bool> loadEvents(){
         while (getline(saved_file,line_in_file)){
             // Split the line
             std::vector<std::string> tokens = splitString(line_in_file,",");
+            // Directly pushes the object to the container
+            loaded_events.emplace_back(tokens[0], // uuid
+                                    Date{
+                                        static_cast<unsigned int>(std::strtol(tokens[3].c_str(), nullptr, 10)), // year
+                                        static_cast<unsigned int>(std::strtol(tokens[2].c_str(), nullptr, 10)), // month
+                                        static_cast<unsigned int>(std::strtol(tokens[1].c_str(), nullptr, 10)) // day
+                                    },
+                                    tokens[4], // title
+                                    tokens[5] // description
+                                );
 
-            try {
-                // Directly pushes the object to the container
-                loaded_events.emplace_back(tokens[0], // uuid
-                                        Date{
-                                            static_cast<unsigned char>(std::strtol(tokens[1].c_str(), nullptr, 10)), // day
-                                            static_cast<unsigned char>(std::strtol(tokens[2].c_str(), nullptr, 10)), // month
-                                            static_cast<unsigned int>(std::strtol(tokens[3].c_str(), nullptr, 10)) // year
-                                        },
-                                        tokens[4], // title
-                                        tokens[5] // description
-                                    );
-
-            } catch (const std::invalid_argument& e) {
-                std::cerr << "Invalid argument encountered while parsing line: " 
-                          << line_in_file 
-                          << ", error: " 
-                          << e.what() 
-                          << ", token(s): [" 
-                          << tokens[0] 
-                          << ", " 
-                          << tokens[1] 
-                          << ", " 
-                          << tokens[2] 
-                          << "]"  // Display the problematic tokens
-                          << std::endl;
-            }
+            
         }
         saved_file.close();
     }

@@ -8,8 +8,8 @@
 #include <utility>
 
 struct Date {
-    unsigned char day;
-    unsigned char month;
+    unsigned int day;
+    unsigned int month;
     unsigned int year;
 
     Date(unsigned int y = 0, unsigned char m = 0, unsigned char d = 0) : day(d), month(m), year(y) {}
