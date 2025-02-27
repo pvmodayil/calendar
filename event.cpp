@@ -1,4 +1,5 @@
 #include "event.h"
+#include "uuid.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -59,7 +60,11 @@ void createEvent(std::vector<Event>& events){
     std::cout<<"Event Description (optional): ";
     std::getline(std::cin>>std::ws, description);
 
-    Event new_event(date,event_title,description);
+    // generate unique identifier for the created event
+    std::string uuid = uuid::generate_uuid();
+
+    // create event struct
+    Event new_event(uuid,date,event_title,description);
     events.push_back(new_event);
 }
 
@@ -90,13 +95,14 @@ void saveEvents(const std::vector<Event>& events){
     // If current write position is zero i.e, nothing written
     if (!file_exist){
         // Write the header
-        out_file << "Day,Month,Year,Title,Description\n";
+        out_file << "UUID,Day,Month,Year,Title,Description\n";
     }
 
     // Write the events into the file
     for (const Event& event : events){
         if (!eventExists(event,loaded_events)){
-            out_file << static_cast<unsigned int>(event.date.day) << ","
+            out_file << event.uuid
+                << static_cast<unsigned int>(event.date.day) << ","
                 << static_cast<unsigned int>(event.date.month) << ","
                 << event.date.year << ","
                 << event.event_title << ","
@@ -121,22 +127,23 @@ std::pair<std::vector<Event>,bool> loadEvents(){
     if (saved_file.is_open()){
         std::string line_in_file;
         getline(saved_file,line_in_file); // Doing it once to get header so that next step onwards header is not considered
-        
-        // Initialise
-        Date date{0,0,0};
-        Event event{date,"",""};
-        std::string title, description;
+
         while (getline(saved_file,line_in_file)){
             // Split the line
             std::vector<std::string> tokens = splitString(line_in_file,",");
 
             try {
-                date.day = static_cast<unsigned char>(std::strtol(tokens[0].c_str(), nullptr, 10));
-                date.month = static_cast<unsigned char>(std::strtol(tokens[1].c_str(), nullptr, 10));
-                date.year = static_cast<unsigned int>(std::strtol(tokens[2].c_str(), nullptr, 10));
-                
-                title = tokens[3]; // Direct assignment without stoi
-                description = tokens[4]; // Direct assignment without stoi
+                // Directly pushes the object to the container
+                loaded_events.emplace_back(tokens[0], // uuid
+                                        Date{
+                                            static_cast<unsigned char>(std::strtol(tokens[1].c_str(), nullptr, 10)), // day
+                                            static_cast<unsigned char>(std::strtol(tokens[2].c_str(), nullptr, 10)), // month
+                                            static_cast<unsigned int>(std::strtol(tokens[3].c_str(), nullptr, 10)) // year
+                                        },
+                                        tokens[4], // title
+                                        tokens[5] // description
+                                    );
+
             } catch (const std::invalid_argument& e) {
                 std::cerr << "Invalid argument encountered while parsing line: " 
                           << line_in_file 
@@ -151,7 +158,6 @@ std::pair<std::vector<Event>,bool> loadEvents(){
                           << "]"  // Display the problematic tokens
                           << std::endl;
             }
-            loaded_events.emplace_back(date,title,description); // Directly pushes the object to the container
         }
         saved_file.close();
     }
