@@ -1,7 +1,7 @@
 /*
 This file depends on the calendar.h -> calendar.cpp
 */
-#include "calendar.h"
+#include "display.h"
 #include "event.h"
 #include <iostream>
 
