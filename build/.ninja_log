@@ -1,8 +1,0 @@
-# ninja log v6
-41	411	7621922009563315	CMakeFiles/calendar.dir/main.cpp.obj	a42c34d1f5f71971
-10	397	7621824878605564	CMakeFiles/calendar.dir/calendar.cpp.obj	1551c08af5b0d6ba
-27	615	7621955131050930	CMakeFiles/calendar.dir/event.cpp.obj	adb9921cb52df97
-616	731	7621955136943436	calendar.exe	901d6c6887b53c35
-31	389	7621967307365784	CMakeFiles/calendar.dir/main.cpp.obj	a42c34d1f5f71971
-35	622	7621967307365784	CMakeFiles/calendar.dir/event.cpp.obj	adb9921cb52df97
-622	736	7621967313299111	calendar.exe	901d6c6887b53c35
