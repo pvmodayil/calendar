@@ -101,7 +101,7 @@ void saveEvents(const std::vector<Event>& events){
     // Write the events into the file
     for (const Event& event : events){
         if (!eventExists(event,loaded_events)){
-            out_file << event.uuid
+            out_file << event.uuid << ","
                 << static_cast<unsigned int>(event.date.day) << ","
                 << static_cast<unsigned int>(event.date.month) << ","
                 << event.date.year << ","
