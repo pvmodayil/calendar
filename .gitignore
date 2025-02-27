@@ -1,3 +1,6 @@
 # folders
 build/
 .vscode/
+
+# files
+events.csv
