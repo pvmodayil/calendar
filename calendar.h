@@ -6,9 +6,9 @@
 #include <string>
 #include <utility> // For std::pair
 
-unsigned char getWeekDay(unsigned int year, unsigned char month = 1, unsigned char day = 1);
+unsigned int getWeekDay(unsigned int year, unsigned int month = 1, unsigned int day = 1);
 bool isLeapYear(unsigned int year);
-std::pair<std::string, unsigned char> getMonthInfo(unsigned char month, bool leap_year);
+std::pair<std::string, unsigned int> getMonthInfo(unsigned int month, bool leap_year);
 void displayCalendar(unsigned int year);
 
 #endif
